@@ -4,7 +4,7 @@ using Rmzone.Sdl2.Internal;
 
 namespace Rmzone.Sdl2
 {
-    public class Surface
+    public sealed class Surface
     {
         #region Fields
 
@@ -12,13 +12,6 @@ namespace Rmzone.Sdl2
 
         #endregion
 
-        #region Properties
-        
-        // todo: expose internal fields
-        // see: https://wiki.libsdl.org/SDL_Surface?highlight=%28%5CbCategoryStruct%5Cb%29%7C%28CategorySurface%29
-        
-        #endregion
-        
         #region Constructor
 
         private Surface(SurfacePtr surfacePtr)
@@ -37,7 +30,7 @@ namespace Rmzone.Sdl2
             {
                 throw new Exception($"SDL Error: {Sdl2Native.SDL_GetError()}");
             }
-            
+
             return new Surface(surfacePtr);
         }
 
@@ -52,8 +45,6 @@ namespace Rmzone.Sdl2
                 format.Gmask,
                 format.Bmask,
                 format.Amask);
-
-            // TODO: probably want to throw if we get a null pointer?
 
             return new Surface(sclscreen);
         }
@@ -72,7 +63,7 @@ namespace Rmzone.Sdl2
         {
             Sdl2Native.SDL_BlitSurface(src._surfacePtr, IntPtr.Zero, dst._surfacePtr, IntPtr.Zero);
         }
-        
+
         #endregion
     }
 }

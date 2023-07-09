@@ -8,12 +8,12 @@ namespace Rmzone.Sdl2
         {
             Sdl2Native.SDL_RenderDrawPoint(renderer.Handle, pt.X, pt.Y);
         }
-        
+
         public static void DrawLine(this Renderer renderer, Point pt1, Point pt2)
         {
             Sdl2Native.SDL_RenderDrawLine(renderer.Handle, pt1.X, pt1.Y, pt2.X, pt2.Y);
         }
-        
+
         public static void FillRect(this Renderer renderer, Rectangle rect)
         {
             var box = new Sdl2Native.SDL_Rect {x = rect.X, y = rect.Y, w = rect.Width, h = rect.Height};

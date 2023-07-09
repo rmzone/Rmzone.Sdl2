@@ -14,7 +14,7 @@ namespace Rmzone.Sdl2
         SDL_BLENDMODE_INVALID =	0x7FFFFFFF
     }
 
-    public class Texture
+    public sealed class Texture
     {
         private readonly TexturePtr _texturePtr;
         private readonly Renderer _renderer;

@@ -2,7 +2,7 @@ using Rmzone.Sdl2.Internal;
 
 namespace Rmzone.Sdl2
 {
-    public class Timer
+    public sealed class Timer
     {
         /// <summary>
         /// Milliseconds since system initialized
@@ -21,7 +21,7 @@ namespace Rmzone.Sdl2
         {
             return Sdl2Native.SDL_GetPerformanceCounter();
         }
-        
+
         /// <summary>
         /// se this function to get the count per second of the high resolution counter.
         /// </summary>
