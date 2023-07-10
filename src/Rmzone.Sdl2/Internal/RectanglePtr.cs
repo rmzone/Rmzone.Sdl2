@@ -1,27 +1,23 @@
 ﻿using System;
 
-// ReSharper disable InconsistentNaming
-// ReSharper disable MemberCanBePrivate.Global
+namespace Rmzone.Sdl2.Internal;
 
-namespace Rmzone.Sdl2.Internal
+/// <summary>
+/// A transparent wrapper over a pointer representing an SDL_Rect object.
+/// </summary>
+internal readonly struct RectanglePtr
 {
     /// <summary>
-    /// A transparent wrapper over a pointer representing an SDL_Rect object.
+    /// The native SDL_Renderer pointer.
     /// </summary>
-    public readonly struct RectanglePtr
+    private readonly IntPtr _nativePointer;
+
+    private RectanglePtr(IntPtr pointer)
     {
-        /// <summary>
-        /// The native SDL_Renderer pointer.
-        /// </summary>
-        public readonly IntPtr NativePointer;
-
-        public RectanglePtr(IntPtr pointer)
-        {
-            NativePointer = pointer;
-        }
-
-        public static implicit operator IntPtr(RectanglePtr rectangle) => rectangle.NativePointer;
-        public static implicit operator RectanglePtr(IntPtr pointer) => new RectanglePtr(pointer);
-        public static implicit operator RectanglePtr(Rectangle rect) => new RectanglePtr(IntPtr.Zero);
+        _nativePointer = pointer;
     }
+
+    public static implicit operator IntPtr(RectanglePtr rectangle) => rectangle._nativePointer;
+    public static implicit operator RectanglePtr(IntPtr pointer) => new(pointer);
+    public static implicit operator RectanglePtr(Rectangle rectange) => new(IntPtr.Zero);
 }

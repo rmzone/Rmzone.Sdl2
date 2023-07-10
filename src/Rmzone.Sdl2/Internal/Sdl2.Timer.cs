@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace Rmzone.Sdl2.Internal
 {
-    public static partial class Sdl2Native
+    internal static partial class Sdl2Native
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate UInt32 SDL_GetTicks_t();
@@ -15,7 +15,7 @@ namespace Rmzone.Sdl2.Internal
         private delegate UInt32 SDL_GetPerformanceCounter_t();
         private static readonly SDL_GetPerformanceCounter_t s_sdl_get_performance_counter = LoadFunction<SDL_GetPerformanceCounter_t>("SDL_GetPerformanceCounter");
         public static UInt64 SDL_GetPerformanceCounter() => s_sdl_get_performance_counter();
-        
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate UInt32 SDL_GGetPerformanceFrequency_t();
         private static readonly SDL_GGetPerformanceFrequency_t s_sdl_get_performance_frequency = LoadFunction<SDL_GGetPerformanceFrequency_t>("SDL_GetPerformanceFrequency");

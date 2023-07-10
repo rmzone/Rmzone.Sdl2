@@ -4,10 +4,10 @@
     {
         public static int Combine(int value1, int value2)
         {
-            uint rol5 = ((uint)value1 << 5) | ((uint)value1 >> 27);
+            var rol5 = ((uint)value1 << 5) | ((uint)value1 >> 27);
             return ((int)rol5 + value1) ^ value2;
         }
-        
+
         public static int Combine(int value1, int value2, int value3)
         {
             return Combine(value1, Combine(value2, value3));
@@ -55,7 +55,7 @@
                 return 0;
             }
 
-            int hash = items[0].GetHashCode();
+            var hash = items[0].GetHashCode();
             for (int i = 1; i < items.Length; i++)
             {
                 hash = Combine(hash, items[i]?.GetHashCode() ?? i);

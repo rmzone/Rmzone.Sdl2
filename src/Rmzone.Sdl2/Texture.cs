@@ -4,25 +4,13 @@ using Rmzone.Sdl2.Internal;
 
 namespace Rmzone.Sdl2
 {
-    [Flags]
-    public enum SDL_BlendMode
-    {
-        SDL_BLENDMODE_NONE =	0x00000000,
-        SDL_BLENDMODE_BLEND =	0x00000001,
-        SDL_BLENDMODE_ADD =	0x00000002,
-        SDL_BLENDMODE_MOD =	0x00000004,
-        SDL_BLENDMODE_INVALID =	0x7FFFFFFF
-    }
-
-    public class Texture
+    public sealed class Texture
     {
         private readonly TexturePtr _texturePtr;
         private readonly Renderer _renderer;
         private readonly int _width;
         private readonly int _height;
-
         private readonly RgbaByte[] _buffer;
-
         private bool _isDirty = true;
 
         /// <summary>
@@ -41,7 +29,7 @@ namespace Rmzone.Sdl2
             _renderer = renderer;
             _texturePtr = Sdl2Native.SDL_CreateTexture(renderer.Handle, Sdl2Native.SDL_PIXELFORMAT_ABGR8888,  (int) access, w, h);
             _buffer = new RgbaByte[w*h];
-            Sdl2Native.SDL_SetTextureBlendMode(_texturePtr, SDL_BlendMode.SDL_BLENDMODE_BLEND);
+            Sdl2Native.SDL_SetTextureBlendMode(_texturePtr, BlendMode.Blend);
         }
 
         /// <summary>
@@ -51,7 +39,7 @@ namespace Rmzone.Sdl2
         /// <param name="file"></param>
         public Texture(Renderer renderer, string file)
         {
-            IntPtr newTexture = IntPtr.Zero;
+            var newTexture = IntPtr.Zero;
             var loadedSurface = Sdl2Native.IMG_Load(file);
 
             if (loadedSurface == IntPtr.Zero)
@@ -63,7 +51,7 @@ namespace Rmzone.Sdl2
                 var s = Marshal.PtrToStructure<Sdl2Native.SDL_Surface>(loadedSurface);
 
                 // color key image
-//                Sdl2Native.SDL_SetColorKey(loadedSurface, (int)Sdl2Native.SDL_bool.SDL_TRUE, Sdl2Native.SDL_MapRGB(s.format, 0, 0xFF, 0xFF));
+                // Sdl2Native.SDL_SetColorKey(loadedSurface, (int)Sdl2Native.SDL_bool.SDL_TRUE, Sdl2Native.SDL_MapRGB(s.format, 0, 0xFF, 0xFF));
 
                 // create texture from surface pixels
                 newTexture = Sdl2Native.SDL_CreateTextureFromSurface(renderer.Handle, loadedSurface);
@@ -73,12 +61,12 @@ namespace Rmzone.Sdl2
                 }
                 else
                 {
-                    //Get image dimensions
+                    // Get image dimensions
                     _width = s.w;
                     _height = s.h;
                 }
 
-                //Get rid of old loaded surface
+                // Get rid of old loaded surface
                 Sdl2Native.SDL_FreeSurface(loadedSurface);
             }
 
@@ -196,9 +184,7 @@ namespace Rmzone.Sdl2
 
         private static void Swap(ref int a, ref int b)
         {
-            int temp = a;
-            a = b;
-            b = temp;
+            (a, b) = (b, a);
         }
 
         /// <summary>

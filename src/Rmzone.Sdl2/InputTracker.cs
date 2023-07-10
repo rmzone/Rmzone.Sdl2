@@ -41,16 +41,16 @@ namespace Rmzone.Sdl2
             NewMouseButtonsThisFrame.Clear();
 
             MousePosition = snapshot.MousePosition;
-            
+
             foreach (var ke in snapshot.KeyEvents)
             {
                 if (ke.Down)
                 {
-                    KeyDown(ke.Key);
+                    KeyDown(ke);
                 }
                 else
                 {
-                    KeyUp(ke.Key);
+                    KeyUp(ke);
                 }
             }
 
@@ -81,17 +81,22 @@ namespace Rmzone.Sdl2
             }
         }
 
-        private static void KeyUp(Key key)
+        private static void KeyUp(KeyEvent ke)
         {
-            CurrentlyPressedKeys.Remove(key);
-            NewKeysThisFrame.Remove(key);
+            RawKey = (char)0;
+            CurrentlyPressedKeys.Remove(ke.Key);
+            NewKeysThisFrame.Remove(ke.Key);
         }
 
-        private static void KeyDown(Key key)
+        public static char RawKey { get; private set; }
+
+        private static void KeyDown(KeyEvent ke)
         {
-            if (CurrentlyPressedKeys.Add(key))
+            RawKey = ke.Raw;
+
+            if (CurrentlyPressedKeys.Add(ke.Key))
             {
-                NewKeysThisFrame.Add(key);
+                NewKeysThisFrame.Add(ke.Key);
             }
         }
     }

@@ -1,26 +1,22 @@
 ﻿using System;
 
-// ReSharper disable InconsistentNaming
-// ReSharper disable MemberCanBePrivate.Global
+namespace Rmzone.Sdl2.Internal;
 
-namespace Rmzone.Sdl2.Internal
+/// <summary>
+/// A transparent wrapper over a pointer representing an SDL Texture object.
+/// </summary>
+internal readonly struct TexturePtr
 {
     /// <summary>
-    /// A transparent wrapper over a pointer representing an SDL Texture object.
+    /// The native SDL_Texture pointer.
     /// </summary>
-    public readonly struct TexturePtr
+    private readonly IntPtr _nativePointer;
+
+    private TexturePtr(IntPtr pointer)
     {
-        /// <summary>
-        /// The native SDL_Renderer pointer.
-        /// </summary>
-        public readonly IntPtr NativePointer;
-
-        public TexturePtr(IntPtr pointer)
-        {
-            NativePointer = pointer;
-        }
-
-        public static implicit operator IntPtr(TexturePtr Sdl2Window) => Sdl2Window.NativePointer;
-        public static implicit operator TexturePtr(IntPtr pointer) => new TexturePtr(pointer);
+        _nativePointer = pointer;
     }
+
+    public static implicit operator IntPtr(TexturePtr texturePointer) => texturePointer._nativePointer;
+    public static implicit operator TexturePtr(IntPtr pointer) => new(pointer);
 }

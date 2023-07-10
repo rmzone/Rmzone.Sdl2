@@ -20,7 +20,7 @@ namespace Rmzone.Sdl2
     {
         public const int WindowposUndefined =	0x1FFF0000;
         public const int WindowposCentered =	0x2FFF0000;
-        
+
         public static bool Init(InitFlags flags)
         {
             if (Sdl2Native.SDL_Init(flags) != 0)

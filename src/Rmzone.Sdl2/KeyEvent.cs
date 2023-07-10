@@ -4,12 +4,14 @@
     {
         public Key Key { get; }
         public bool Down { get; }
+        public char Raw { get; }
         public ModifierKeys Modifiers { get; }
-        public KeyEvent(Key key, bool down, ModifierKeys modifiers)
+        public KeyEvent(Key key, bool down, ModifierKeys modifiers, char raw)
         {
             Key = key;
             Down = down;
             Modifiers = modifiers;
+            Raw = raw;
         }
 
         public override string ToString() => $"{Key} {(Down ? "Down" : "Up")} [{Modifiers}]";

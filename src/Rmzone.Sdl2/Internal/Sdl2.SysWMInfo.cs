@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Rmzone.Sdl2.Internal
 {
-    public static unsafe partial class Sdl2Native
+    internal static unsafe partial class Sdl2Native
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate int SDL_GetWindowWMInfo_t(WindowPtr sdl2WindowPtr, SDL_SysWMinfo* info);
@@ -11,20 +11,20 @@ namespace Rmzone.Sdl2.Internal
         public static int SDL_GetWMWindowInfo(WindowPtr sdl2WindowPtr, SDL_SysWMinfo* info) => s_getWindowWMInfo(sdl2WindowPtr, info);
     }
 
-    public struct SDL_SysWMinfo
+    internal struct SDL_SysWMinfo
     {
         public SDL_version version;
         public SysWMType subsystem;
         public WindowInfo info;
     }
 
-    public unsafe struct WindowInfo
+    internal unsafe struct WindowInfo
     {
         public const int WindowInfoSizeInBytes = 100;
         private fixed byte bytes[WindowInfoSizeInBytes];
     }
 
-    public struct Win32WindowInfo
+    internal struct Win32WindowInfo
     {
         /// <summary>
         /// The Sdl2Window handle.
@@ -40,20 +40,20 @@ namespace Rmzone.Sdl2.Internal
         public IntPtr hinstance;
     }
 
-    public struct X11WindowInfo
+    internal struct X11WindowInfo
     {
         public IntPtr display;
         public IntPtr Sdl2Window;
     }
 
-    public struct WaylandWindowInfo
+    internal struct WaylandWindowInfo
     {
         public IntPtr display;
         public IntPtr surface;
         public IntPtr shellSurface;
     }
 
-    public struct CocoaWindowInfo
+    internal struct CocoaWindowInfo
     {
         /// <summary>
         /// The NSWindow* Cocoa window.
@@ -61,7 +61,7 @@ namespace Rmzone.Sdl2.Internal
         public IntPtr Window;
     }
 
-    public enum SysWMType
+    internal enum SysWMType
     {
         Unknown,
         Windows,

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace Rmzone.Sdl2.Internal
 {
-    public static partial class Sdl2Native
+    internal static partial class Sdl2Native
     {
         [StructLayout(LayoutKind.Sequential)]
         public struct SDL_Rect
@@ -102,7 +102,7 @@ namespace Rmzone.Sdl2.Internal
         private  delegate void SDL_BlitSurface_t(SurfacePtr src, IntPtr srcRect, SurfacePtr dst, IntPtr dstRect);
         private static readonly SDL_BlitSurface_t s_sdl_blit_surface = LoadFunction<SDL_BlitSurface_t>("SDL_UpperBlit");
         public static void SDL_BlitSurface(SurfacePtr src, IntPtr srcRect, SurfacePtr dst, IntPtr dstRect) => s_sdl_blit_surface(src, srcRect, dst, dstRect);
-        
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private  delegate void SDL_FreeSurface_t(SurfacePtr surface);
         private static readonly SDL_FreeSurface_t s_sdl_free_surface = LoadFunction<SDL_FreeSurface_t>("SDL_FreeSurface");
@@ -111,7 +111,7 @@ namespace Rmzone.Sdl2.Internal
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate int SDL_SetColorKey_t(SurfacePtr surface, int flag, uint key);
         private static readonly SDL_SetColorKey_t s_sdl_set_colorkey = LoadFunction<SDL_SetColorKey_t>("SDL_SetColorKey");
-        public static int SDL_SetColorKey(SurfacePtr surface, int flag, uint key) 
+        public static int SDL_SetColorKey(SurfacePtr surface, int flag, uint key)
             => s_sdl_set_colorkey(surface, flag, key);
     }
 }
