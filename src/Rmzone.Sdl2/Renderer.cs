@@ -7,7 +7,7 @@ namespace Rmzone.Sdl2
     {
         private readonly RendererPtr _rendererPtr;
 
-        public RendererPtr Handle => _rendererPtr;
+        internal RendererPtr Handle => _rendererPtr;
 
         public Renderer(Window window, int index, RendererFlags flags)
         {
@@ -25,7 +25,7 @@ namespace Rmzone.Sdl2
         {
             Sdl2Native.SDL_SetRenderDrawColor(_rendererPtr, r, g, b, a);
         }
-        
+
         public void SetDrawColor(RgbaByte color)
         {
             Sdl2Native.SDL_SetRenderDrawColor(_rendererPtr, color.R, color.G, color.B, color.A);

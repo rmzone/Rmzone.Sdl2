@@ -2,12 +2,13 @@ using Rmzone.Sdl2;
 
 namespace Rmzone.SdlTestApp
 {
-    public class TestApp : GameEngine
+    public class TestApp : GraphicsEngine
     {
+        private const int Scale = 1;
         public TestApp(string title, int width, int height)
-            : base(title, width, height) { }
+            : base(title, width, height, Scale) { }
 
-        protected override void OnUpdate(float delta)
+        protected void OnUpdate(float delta)
         {
             Draw();
         }
@@ -32,6 +33,11 @@ namespace Rmzone.SdlTestApp
             Renderer.DrawLine(new Point(50, 200), new Point(200, 50));
 
             Renderer.Render();
+        }
+
+        public void Run()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

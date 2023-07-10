@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace Rmzone.Sdl2.Internal
 {
-	public static partial class Sdl2Native
+	internal static partial class Sdl2Native
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate TexturePtr SDL_CreateTexture_t(RendererPtr renderer, uint format, int access, int w, int h);
@@ -25,9 +25,9 @@ namespace Rmzone.Sdl2.Internal
         public static int SDL_UpdateTexture(TexturePtr texture, RectanglePtr rect, IntPtr pixels, int pitch) => s_sdl_update_texture(texture, rect, pixels, pitch);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate int SDL_SetTextureBlendMode_t(TexturePtr texture, SDL_BlendMode blendMode);
+        private delegate int SDL_SetTextureBlendMode_t(TexturePtr texture, BlendMode blendMode);
         private static readonly SDL_SetTextureBlendMode_t s_sdl_set_textureblendmode = LoadFunction<SDL_SetTextureBlendMode_t>("SDL_SetTextureBlendMode");
-        public static int SDL_SetTextureBlendMode(TexturePtr texture, SDL_BlendMode blendMode) => s_sdl_set_textureblendmode(texture, blendMode);
+        public static int SDL_SetTextureBlendMode(TexturePtr texture, BlendMode blendMode) => s_sdl_set_textureblendmode(texture, blendMode);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate int SDL_SetTextureColorMod_t(TexturePtr texture, byte r, byte g, byte b);

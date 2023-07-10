@@ -6,11 +6,11 @@ using static Rmzone.Sdl2.Internal.Sdl2Native;
 
 namespace Rmzone.Sdl2
 {
-    internal static class Sdl2EventProcessor
+    internal static class EventProcessor
     {
-        public static readonly object Lock = new object();
+        public static readonly object Lock = new();
         private static readonly Dictionary<uint, Window> EventsByWindowId
-            = new Dictionary<uint, Window>();
+            = new();
 
         public static unsafe void PumpEvents()
         {

@@ -1,26 +1,22 @@
 ﻿using System;
 
-// ReSharper disable InconsistentNaming
-// ReSharper disable MemberCanBePrivate.Global
+namespace Rmzone.Sdl2.Internal;
 
-namespace Rmzone.Sdl2.Internal
+/// <summary>
+/// A transparent wrapper over a pointer representing an SDL Renderer object.
+/// </summary>
+internal readonly struct RendererPtr
 {
     /// <summary>
-    /// A transparent wrapper over a pointer representing an SDL Renderer object.
+    /// The native SDL_Renderer pointer.
     /// </summary>
-    public readonly struct RendererPtr
+    private readonly IntPtr _nativePointer;
+
+    private RendererPtr(IntPtr pointer)
     {
-        /// <summary>
-        /// The native SDL_Renderer pointer.
-        /// </summary>
-        public readonly IntPtr NativePointer;
-
-        public RendererPtr(IntPtr pointer)
-        {
-            NativePointer = pointer;
-        }
-
-        public static implicit operator IntPtr(RendererPtr renderer) => renderer.NativePointer;
-        public static implicit operator RendererPtr(IntPtr pointer) => new RendererPtr(pointer);
+        _nativePointer = pointer;
     }
+
+    public static implicit operator IntPtr(RendererPtr renderer) => renderer._nativePointer;
+    public static implicit operator RendererPtr(IntPtr pointer) => new(pointer);
 }
